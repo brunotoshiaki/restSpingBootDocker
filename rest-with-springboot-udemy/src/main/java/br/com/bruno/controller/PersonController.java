@@ -16,41 +16,37 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.bruno.data.vo.PersonVO;
 import br.com.bruno.service.PersonServices;
 
-
-
-
-
 @RestController
-@RequestMapping("/person")
+@RequestMapping("/person/v1")
 public class PersonController {
-	
+
 	@Autowired
 	private PersonServices service;
-	
+
 	@GetMapping
 	public List<PersonVO> findAll() {
 		return service.findAll();
-	}	
-	
+	}
+
 	@GetMapping("/{id}")
 	public PersonVO findById(@PathVariable("id") Long id) {
 		return service.findById(id);
-	}	
-	
+	}
+
 	@PostMapping
 	public PersonVO create(@RequestBody PersonVO person) {
 		return service.create(person);
 	}
-	
+
 	@PutMapping
 	public PersonVO update(@RequestBody PersonVO person) {
 		return service.update(person);
-	}	
-	
+	}
+
 	@DeleteMapping("/{id}")
 	public ResponseEntity<?> delete(@PathVariable("id") Long id) {
 		service.delete(id);
 		return ResponseEntity.ok().build();
-	}	
-	
+	}
+
 }
