@@ -1,2 +1,0 @@
-INDEX VERSION 1.131+E:\Bruno\Estudos\restSpingBootDocker\.metadata\.plugins\org.eclipse.jdt.core
-2822465738.index
