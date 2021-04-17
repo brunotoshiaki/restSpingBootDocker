@@ -57,6 +57,18 @@
 			<artifactId>junit</artifactId>
 		</dependency>
 
+		<!-- for XML support -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.dataformat</groupId>
+			<artifactId>jackson-dataformat-xml</artifactId>
+		</dependency>
+
+		<!-- for YML support -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.dataformat</groupId>
+			<artifactId>jackson-dataformat-yaml</artifactId>
+		</dependency>
+
 	</dependencies>
 
 	<build>
@@ -84,7 +96,7 @@
 						</exclusions>
 					</dependency>
 				</dependencies>
-			</plugin>			
+			</plugin>
 		</plugins>
 	</build>
 </project>
