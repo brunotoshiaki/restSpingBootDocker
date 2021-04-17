@@ -3,7 +3,7 @@ package br.com.bruno.converter.mocks;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.bruno.data.vo.PersonVO;
+import br.com.bruno.data.vo.v1.PersonVO;
 import br.com.bruno.model.Person;
 
 

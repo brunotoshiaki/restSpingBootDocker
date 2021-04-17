@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.bruno.converter.DozerConverter;
-import br.com.bruno.data.vo.PersonVO;
+import br.com.bruno.data.vo.v1.PersonVO;
 import br.com.bruno.exception.ResourceNotFoundException;
 import br.com.bruno.model.Person;
 import br.com.bruno.repository.PersonRepository;
