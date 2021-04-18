@@ -14,7 +14,7 @@ import br.com.bruno.serialization.converter.YamlJackson2HttpMessageConverter;
 
 
 @Configuration
-@EnableWebMvc
+
 public class WebConfig implements WebMvcConfigurer {
 
 	private static final MediaType MEDIA_TYPE_YML = MediaType.valueOf("application/x-yaml");
