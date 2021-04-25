@@ -13,7 +13,7 @@ import lombok.EqualsAndHashCode;
 
 @Data
 @EqualsAndHashCode(callSuper=false)
-@JsonPropertyOrder({ "id", "firstName", "lastName", "address", "gender" })
+@JsonPropertyOrder({ "id", "firstName", "lastName", "address", "gender", "enabled" })
 public class PersonVO  extends ResourceSupport implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -24,6 +24,8 @@ public class PersonVO  extends ResourceSupport implements Serializable {
 	private String lastName;
 	private String address;
 	private String gender;
+	private Boolean enabled;
+
 
 	
 }
