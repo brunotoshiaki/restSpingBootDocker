@@ -29,6 +29,11 @@ public class PersonServices {
 	return page.map(this::convertToPersonVO);
     }
 
+    public Page<PersonVO> findPersonByName(String firstName, Pageable pageable) {
+	var page = repository.findPersonByName(firstName, pageable);
+	return page.map(this::convertToPersonVO);
+    }
+
     public PersonVO findById(Long id) {
 
 	var entity = repository.findById(id)
