@@ -1,69 +1,70 @@
 package br.com.bruno.service;
 
-
-
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import br.com.bruno.converter.DozerConverter;
 import br.com.bruno.data.vo.v1.PersonVO;
 import br.com.bruno.exception.ResourceNotFoundException;
 import br.com.bruno.model.Person;
 import br.com.bruno.repository.PersonRepository;
 
-
-
 @Service
 public class PersonServices {
 
-  @Autowired
-  PersonRepository repository;
+    @Autowired
+    PersonRepository repository;
 
-  public PersonVO create(PersonVO person) {
-    var entity = DozerConverter.parseObject(person, Person.class);
-    var vo = DozerConverter.parseObject(repository.save(entity), PersonVO.class);
-    return vo;
-  }
+    public PersonVO create(PersonVO person) {
+	var entity = DozerConverter.parseObject(person, Person.class);
+	var vo = DozerConverter.parseObject(repository.save(entity), PersonVO.class);
+	return vo;
+    }
 
-  public List<PersonVO> findAll(Pageable pageable) {
-    var entities = repository.findAll(pageable).getContent();
-    return DozerConverter.parseListObjects(entities, PersonVO.class);
-  }
+    public Page<PersonVO> findAll(Pageable pageable) {
+	var page = repository.findAll(pageable);
+	return page.map(this::convertToPersonVO);
+    }
 
-  public PersonVO findById(Long id) {
+    public PersonVO findById(Long id) {
 
-    var entity = repository.findById(id)
-        .orElseThrow(() -> new ResourceNotFoundException("No records found for this ID"));
-    return DozerConverter.parseObject(entity, PersonVO.class);
-  }
+	var entity = repository.findById(id)
+		.orElseThrow(() -> new ResourceNotFoundException("No records found for this ID"));
+	return DozerConverter.parseObject(entity, PersonVO.class);
+    }
 
-  public PersonVO update(PersonVO person) {
-    var entity = repository.findById(person.getKey())
-        .orElseThrow(() -> new ResourceNotFoundException("No records found for this ID"));
+    public PersonVO update(PersonVO person) {
+	var entity = repository.findById(person.getKey())
+		.orElseThrow(() -> new ResourceNotFoundException("No records found for this ID"));
 
-    entity.setFirstName(person.getFirstName());
-    entity.setLastName(person.getLastName());
-    entity.setAddress(person.getAddress());
-    entity.setGender(person.getGender());
+	entity.setFirstName(person.getFirstName());
+	entity.setLastName(person.getLastName());
+	entity.setAddress(person.getAddress());
+	entity.setGender(person.getGender());
 
-    var vo = DozerConverter.parseObject(repository.save(entity), PersonVO.class);
-    return vo;
-  }
+	var vo = DozerConverter.parseObject(repository.save(entity), PersonVO.class);
+	return vo;
+    }
 
-  public void delete(Long id) {
-    Person entity = repository.findById(id)
-        .orElseThrow(() -> new ResourceNotFoundException("No records found for this ID"));
-    repository.delete(entity);
-  }
+    public void delete(Long id) {
+	Person entity = repository.findById(id)
+		.orElseThrow(() -> new ResourceNotFoundException("No records found for this ID"));
+	repository.delete(entity);
+    }
 
-  @Transactional
-  public PersonVO disablePerson(Long id) {
-    repository.disablePersons(id);
-    var entity = repository.findById(id)
-        .orElseThrow(() -> new ResourceNotFoundException("No records found for this ID"));
-    return DozerConverter.parseObject(entity, PersonVO.class);
-  }
+    @Transactional
+    public PersonVO disablePerson(Long id) {
+	repository.disablePersons(id);
+	var entity = repository.findById(id)
+		.orElseThrow(() -> new ResourceNotFoundException("No records found for this ID"));
+	return DozerConverter.parseObject(entity, PersonVO.class);
+    }
+
+    private PersonVO convertToPersonVO(Person entity) {
+	return DozerConverter.parseObject(entity, PersonVO.class);
+    }
 
 }
